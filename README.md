@@ -49,7 +49,8 @@ curl -v http://localhost:8090/v1/phone/{id}
 curl -v http://localhost:8090/v1/ping 
 ```
  
-For tests, change value in property name="hibernate.ogm.datastore.host" on localhost
-And stop your local mongo, because I used EmbeddedMongo from Springdata.
+### Tests 
+Change value in property name="hibernate.ogm.datastore.host" on localhost
+and stop your local mongo, because I used EmbeddedMongo from Springdata.
 
 
