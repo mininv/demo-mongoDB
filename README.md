@@ -8,7 +8,7 @@ Spring Boot
 https://spring.io/projects/spring-boot
 
 ORM/OGM System: Hipernate OGM
-https://docs.jboss.org/hibernate/ogm/4.0/reference/en-US/html_single/ . https://hibernate.org/ogm/
+https://docs.jboss.org/hibernate/stable/ogm/reference/en-US/html_single/?v=5.4 . https://hibernate.org/ogm/
 
 Database: mongodb
 https://docs.mongodb.com/
