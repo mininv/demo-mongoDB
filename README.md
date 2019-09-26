@@ -13,19 +13,18 @@ https://docs.jboss.org/hibernate/ogm/4.0/reference/en-US/html_single/ . https://
 Database: mongodb
 https://docs.mongodb.com/
 
-Start project:
+### Start project:
 run file
 ```unux
-start.sh
+./start.sh
 ```
-
-REST API:
-Create a new product  
+## REST API:
+### Create a new product  
 ```unix
 curl -d '{"phoneName":"phone1","phoneDescription":"description","parameters":{"параметр":"значение"}}' -H 'Content-Type: application/json' http://localhost:8090/v1/phone/
 ```
 
-Get a list of product names, with the ability to filter by:
+### Get a list of product names, with the ability to filter by:
 a) name 
 ```unix
 curl -v http://localhost:8090/v1/phone/?name=HUAWEI
@@ -35,7 +34,7 @@ b) the selected parameter and its value
 curl "http://localhost:8090/v1/phone/filter/?parameter=аккумулятор&value=3500 мАч"
 ```
 
-Get product details by ID
+### Get product details by ID
 1. find all phones and copy ID
 ```unix
 curl -v http://localhost:8090/v1/phone
@@ -45,7 +44,7 @@ curl -v http://localhost:8090/v1/phone
 curl -v http://localhost:8090/v1/phone/{id}
 ```
 
-Check controller
+### Check controller
 ```unix
 curl -v http://localhost:8090/v1/ping 
 ```
