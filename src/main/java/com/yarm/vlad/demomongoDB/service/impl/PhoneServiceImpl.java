@@ -3,6 +3,8 @@ package com.yarm.vlad.demomongoDB.service.impl;
 import com.yarm.vlad.demomongoDB.domain.Telephone;
 import com.yarm.vlad.demomongoDB.service.PhoneService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityManager;
@@ -12,6 +14,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
+@Primary
 public class PhoneServiceImpl implements PhoneService {
 
     @Autowired
@@ -21,12 +24,29 @@ public class PhoneServiceImpl implements PhoneService {
     private EntityManagerFactory entityManagerFactory;
 
     @Override
-    public void save(Telephone telephone) throws Exception {
-        transactionManager.begin();
+    public void save(Telephone telephone) {
         EntityManager entityManager = entityManagerFactory.createEntityManager();
-        entityManager.persist(telephone);
-        entityManager.close();
-        transactionManager.commit();
+        try {
+            transactionManager.begin();
+            entityManager.persist(telephone);
+            entityManager.close();
+            transactionManager.commit();
+        }catch (Exception ex){
+            try {
+                if(transactionManager.getStatus() == Status.STATUS_ACTIVE||
+                transactionManager.getStatus()==Status.STATUS_MARKED_ROLLBACK){
+                    transactionManager.rollback();
+                }
+            } catch (SystemException e) {
+                e.printStackTrace();
+            }
+            throw new RuntimeException(ex);
+        }finally {
+            if(entityManager != null && entityManager.isOpen()){
+                entityManager.close();
+            }
+        }
+
     }
 
     @Override
@@ -45,8 +65,6 @@ public class PhoneServiceImpl implements PhoneService {
     @Override
     public List<Telephone> findByPhoneName(String name) {
         EntityManager em = entityManagerFactory.createEntityManager();
-        //  db.getCollection('Telephone').find({ 'phoneName' : 'adas' })
-//db.getCollection('Telephone').find({ "parameters.Разрешение экрана": {$exists : true} })
         String query2 = "db.Telephone.find( { phoneName : '" + name + "' })";
         List<Telephone> telephones = em.createNativeQuery(query2, Telephone.class).getResultList();
         return telephones;

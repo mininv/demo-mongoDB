@@ -89,7 +89,7 @@ public class TelephoneControllerTest extends BaseIntegrationTest {
     }
 
     @Before
-    public void prepareData() throws Exception {
+    public void prepareData() {
         Telephone telephone = new Telephone();
         telephone.setPhoneName(samsung);
         telephone.setPhoneDescription("a30");

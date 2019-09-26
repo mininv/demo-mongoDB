@@ -20,11 +20,7 @@ public class PhoneServiceImplTest extends BaseIntegrationTest {
 
     @Test
     public void save() {
-        try {
-            phoneService.save(telephone);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        phoneService.save(telephone);
         Telephone byPhoneId = phoneService.getByPhoneId(telephone.getPhoneId());
         Assert.assertNotNull("The telephone retrieved from the DB should not be null", byPhoneId);
     }
@@ -38,11 +34,7 @@ public class PhoneServiceImplTest extends BaseIntegrationTest {
     @Test
     public void findAll() {
         Telephone telephone1 = new Telephone("имя1", "описание1");
-        try {
-            phoneService.save(telephone1);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        phoneService.save(telephone1);
         Telephone telephoneFromDb = phoneService.findAll().stream().findFirst().orElse(null);
         Assert.assertNotNull("The telephone from method findAll should not be null", telephoneFromDb);
     }
@@ -56,18 +48,13 @@ public class PhoneServiceImplTest extends BaseIntegrationTest {
     }
 
     @Test
-    public void findByParameterAndValue(){
+    public void findByParameterAndValue() {
         Telephone telephone = new Telephone("samsung", "a30");
         String key = "количество ядер";
-
         String value = "2";
         telephone.getParameters().put(key, value);
-        try {
-            phoneService.save(telephone);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        phoneService.save(telephone);
         List<Telephone> byParameterAndValue = phoneService.findByParameterAndValue(key, value);
-        Assert.assertTrue(byParameterAndValue.size()==1);
+        Assert.assertTrue(!byParameterAndValue.isEmpty());
     }
 }

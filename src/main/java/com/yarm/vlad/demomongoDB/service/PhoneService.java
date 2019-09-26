@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.Optional;
 
 public interface PhoneService {
-    void save(Telephone telephone) throws Exception;
+    void save(Telephone telephone);
 
     Telephone getByPhoneId(String id);
 
